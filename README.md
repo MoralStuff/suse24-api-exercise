@@ -141,10 +141,20 @@ Usage examples for reading:
 Usage example for writing:
 
     import {read, write} from './tools/json-files.js'
+
+    const gameRuns = read('game-runs');
+    const currentGameRun = // ... find current game run
+    const updatedGameRun = {
+       ...currentGameRun,
+       responses: {
+          ...currentGameRun.responses,
+          newResponse // The new answer provided by the client
+       }
+    }
+
+    const mergedGameRuns = // ... Create a new array including the updated game run and all other (untoched) game runs. Prevent duplicate game runs.
     
-    newAttempt = ... // your new object here
-    const questions = read('attempts');
-    write('attempts', [...attempts, newAttempt])
+    write('game-runs', mergedGameRuns)
 
 # References
 
