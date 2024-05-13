@@ -19,11 +19,10 @@ passport.use(new BasicStrategy(
             const user = users.find(u => u.userName === userName);
             if (!user) {
                 console.log('User not found');
-                return done(null, false, { message: 'No such user' });
+                return done(null, false);
             }
             const isMatch = await bcrypt.compare(password, user.password);
-            console.log('Wrong password');
-            return isMatch ? done(null, user) : done(null, false, { message: 'Password incorrect' });
+            return isMatch ? done(null, user) : (console.log('Wrong password'), done(null, false));
         } catch (error) {
             return done(error);
         }
